@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
@@ -11,22 +11,50 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
+import { API } from '../../api-service';
+import { useCookies } from 'react-cookie';
+
 
 export default function RegisterScreen({ navigation }) {
-  const [name, setName] = useState({ value: '', error: '' })
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
 
+  
+  function sleep(time){
+    return new Promise((resolve)=>setTimeout(resolve,time)
+    )}
+    const[username, setUsername ] = useState('');
+    const[password, setPassword ] = useState('');
+    const[firstName, setFirstName ] = useState('');
+    const[lastName, setLastName ] = useState('');
+    const[userRegistered, setUserRegistered ] = useState(false);
+   
+    const registerUser = () =>  {
+      console.log("REGISTER-USER")
+      API.registerUser({username, password})
+              .then( resp => resp)
+              .then(createUserProfile)
+              .then( setUserRegistered(true))
+              .catch( error => console.log(error))
+              setUserRegistered(true)     
+  }
+  const createUserProfile =  () => {       
+    console.log("inside create user profile")
+    sleep(100).then(()=>{
+    API.registerUserProfile(username, firstName, lastName)
+        .then( resp => resp)                
+        .catch( error => console.log(error)) 
+    })
+     }
   const onSignUpPressed = () => {
-    const nameError = nameValidator(name.value)
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError || nameError) {
-      setName({ ...name, error: nameError })
-      setEmail({ ...email, error: emailError })
-      setPassword({ ...password, error: passwordError })
-      return
-    }
+    API.registerUser({username, password})
+                .then( resp => console.log(resp))
+                .then(createUserProfile)
+                .then(setUsername(''))
+                .then(setPassword(''))
+                .then(setFirstName(''))
+                .then(setLastName(''))  
+                registerUser();
+     
+    
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],
@@ -39,33 +67,41 @@ export default function RegisterScreen({ navigation }) {
       <Logo />
       <Header>Create Account</Header>
       <TextInput
-        label="Name"
+        label="User Name"
         returnKeyType="next"
-        value={name.value}
-        onChangeText={(text) => setName({ value: text, error: '' })}
-        error={!!name.error}
-        errorText={name.error}
-      />
-      <TextInput
-        label="Email"
-        returnKeyType="next"
-        value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: '' })}
-        error={!!email.error}
-        errorText={email.error}
         autoCapitalize="none"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
+        value={username}
+        onChange={evt => setUsername(evt.target.value)}
+       
       />
+      
       <TextInput
         label="Password"
+        autoCapitalize="none"
         returnKeyType="done"
-        value={password.value}
-        onChangeText={(text) => setPassword({ value: text, error: '' })}
-        error={!!password.error}
-        errorText={password.error}
+        value={password}
+        onChange={evt => setPassword(evt.target.value)}
         secureTextEntry
+      />
+      <TextInput
+        label="First Name"
+        returnKeyType="next"
+        value={firstName}
+        onChange={evt => setFirstName(evt.target.value)}
+       
+        autoCapitalize="none"
+        autoCompleteType="firstName"
+        textContentType="firstName"
+      />
+      <TextInput
+        label="Last Name"
+        returnKeyType="next"
+        value={lastName}
+        onChange={evt => setLastName(evt.target.value)}
+        
+        autoCapitalize="none"
+        autoCompleteType="lastName"
+        textContentType="lastName"
       />
       <Button
         mode="contained"
