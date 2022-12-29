@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@j7%6erf-5x9mik2ct4a425om**9g921il))+8o*a6xabt5jdl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -52,6 +52,12 @@ MIDDLEWARE = [
 ]
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
+REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
 ROOT_URLCONF = 'beerstore.urls'
 
 TEMPLATES = [
