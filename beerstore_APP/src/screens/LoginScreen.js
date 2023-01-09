@@ -1,5 +1,5 @@
 import React, { useState , useEffect } from 'react'
-import { TouchableOpacity, StyleSheet, View, Switch } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Switch, AsyncStorage} from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
@@ -11,21 +11,51 @@ import { theme } from '../core/theme'
 import { API } from '../../api-service';
 import { useCookies } from 'react-cookie';
 import { navigate } from "react-navigation";
-
+import Dashboard from './Dashboard';
+import axios from 'axios';
+//import AsyncStorage from "@react-native-community/async-storage";
 export default function LoginScreen({ navigation }) {
   const [ username, setUsername] = useState('');
   const [ password, setPassword] = useState('');
   const[ token, setToken] = useCookies(['mr-token']);
-  const redirectToDashboard = () => {
-    return navigate("Dashboard");
-  }
+  useEffect( () =>{
+    console.log(token)
+     if(token['mr-token'] )  
+        if(token['mr-token'] === 'undefined' )
+        setErrorMessage('שם משתמש או סיסמא לא נכונים');
+      
+  }, [token])
 
-  const loginClicked = () => {
-    API.loginUser(username, password)
-    .then( resp => resp)
-    .then(resp => setToken('mr-token', resp.token))
-    .catch( error => console.log(error))
-    redirectToDashboard(); 
+  //const csrftoken = getCookie('csrftoken');
+   
+  async function loginClicked  () {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/mainApp/users/', {
+        username: username,
+        password: password
+      }, {
+        //headers: 
+        //  'X-CSRFToken': csrfToken
+       // }
+      })
+      const data = response.data;
+      if (data.success) {
+        console.log('Login successful');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Dashboard' }],
+        })
+      } else {
+        console.log(data.message);
+        // Show an error message
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Dashboard' }],
+        })
+      }
+    } catch (error) {
+      console.error(error);
+    }
    }
   return (
     <Background>
@@ -33,10 +63,12 @@ export default function LoginScreen({ navigation }) {
       <Logo />
       <Header>Welcome back.</Header>
       <TextInput
+      
         label="User Name"
         returnKeyType="next"
         value={username}
        onChange={evt => setUsername(evt.target.value)}
+       
         autoCapitalize="none"
       />
       <TextInput

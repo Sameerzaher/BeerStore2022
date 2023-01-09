@@ -13,7 +13,7 @@ import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
 import { API } from '../../api-service';
 import { useCookies } from 'react-cookie';
-
+import axios from 'axios';
 
 export default function RegisterScreen({ navigation }) {
 

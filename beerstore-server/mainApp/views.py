@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -9,6 +10,26 @@ from .models import UserProfile
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+
+from django.views.decorators.csrf import csrf_exempt
+
+from django.contrib.auth import authenticate, login
+
+
+@csrf_exempt
+@csrf_protect
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'message': 'Invalid login credentials'})
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -19,24 +40,6 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['POST'])
     def getuser(self, request, pk=None):
         user = User.object.get(id=pk)
-
-    # @action (detail=True, methods = ['POST'])
-    # def getUserDetails(self, request, pk=None):
-    #         print("im here in get user details")
-    #         user = request.user
-    #         print("user from query is: ", user)
-    #         arr=[]
-    #         u = User.objects.get(username='yarinAAA')
-    #         print("user mail is: ", u.email)
-    #         print("user name is: ", u.name)
-    #         print("user surname is: ", u.lastName)
-    #         userDetails= User.objects.filter(user=user.id, course=pk)
-    #         for userCourse in userCourses:
-    #             serializers = UserCoursesSerializer(userCourse, many=False)
-    #             arr.append(serializers.data)
-
-    #         response = {'message': 'Get', 'results': arr }
-    #         return Response (response, status=status.HTTP_200_OK)
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):

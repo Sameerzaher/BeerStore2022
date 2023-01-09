@@ -10,10 +10,27 @@ export default function Dashboard({ navigation }) {
     <Background>
       <Logo />
       <Header>Let’s start</Header>
-      <Paragraph>
-        Your amazing app starts here. Open you favorite code editor and start
-        editing this project.
-      </Paragraph>
+      <Button mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Orders' }],
+          })
+        }>Orders</Button>
+      <Button mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'AddUserScreen' }],
+          })
+        }>Add User</Button>
+      <Button mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Products' }],
+          })
+        }> Products</Button>
       <Button
         mode="outlined"
         onPress={() =>
