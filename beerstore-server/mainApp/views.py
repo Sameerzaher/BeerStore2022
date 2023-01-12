@@ -4,9 +4,9 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, UserProfileSerializer
+from .serializers import UserSerializer, UserProfileSerializer, ProductsSerializer, SuppliersSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import UserProfile
+from .models import UserProfile, Products, Suppliers
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -152,3 +152,15 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             # requested profile not found in DB
             response = {'message': 'error'}
             return Response(response, status=status.HTTP_200_OK)
+
+
+class ProductsViewSet(viewsets.ModelViewSet):
+    queryset = Products.objects.all()
+    serializer_class = ProductsSerializer
+    #authentication_classes = (TokenAuthentication, )
+
+
+class SuppliersViewSet(viewsets.ModelViewSet):
+    queryset = Suppliers.objects.all()
+    serializer_class = SuppliersSerializer
+    #authentication_classes = (TokenAuthentication, )

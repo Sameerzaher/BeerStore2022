@@ -18,3 +18,15 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Products(models.Model):
+    name = models.CharField(max_length=32)
+    supplier = models.CharField(max_length=32)
+    amount = models.DecimalField(max_digits=10, decimal_places=3)
+
+
+class Suppliers(models.Model):
+    name = models.CharField(max_length=32)
+    Products = models.ManyToManyField(Products, related_name='Products')
+    address = models.CharField(max_length=32)

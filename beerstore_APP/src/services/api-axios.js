@@ -1,5 +1,5 @@
 import axios from 'axios';
-const api = axios.create({
+const apiAPI = axios.create({
     
 });
 async function login(username, password) {

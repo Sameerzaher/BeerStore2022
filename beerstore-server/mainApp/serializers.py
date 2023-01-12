@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from .models import UserProfile
+from .models import UserProfile, Products, Suppliers
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -22,3 +22,17 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('id', 'user', 'username', 'firstName', 'lastName',
                   'email', 'userType', )
+
+
+class ProductsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Products
+        fields = ('id', 'name', 'supplier name', 'amount', )
+
+
+class SuppliersSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Suppliers
+        fields = ('id', 'name', 'Products', 'address', )
