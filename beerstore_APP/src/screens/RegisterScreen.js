@@ -25,34 +25,37 @@ export default function RegisterScreen({ navigation }) {
     const[password, setPassword ] = useState('');
     const[firstName, setFirstName ] = useState('');
     const[lastName, setLastName ] = useState('');
+    const[errorMessage, setErrorMessage ] = useState('');
     const[userRegistered, setUserRegistered ] = useState(false);
    
     const registerUser = () =>  {
       console.log("REGISTER-USER")
       API.registerUser({username, password})
               .then( resp => resp)
-              .then(createUserProfile)
+             // .then(createUserProfile)
               .then( setUserRegistered(true))
               .catch( error => console.log(error))
-              setUserRegistered(true)     
+             // setUserRegistered(true)     
   }
-  const createUserProfile =  () => {       
-    console.log("inside create user profile")
-    sleep(100).then(()=>{
-    API.registerUserProfile(username, firstName, lastName)
-        .then( resp => resp)                
-        .catch( error => console.log(error)) 
-    })
-     }
+ // const createUserProfile =  () => {       
+   // console.log("inside create user profile front ")
+   // sleep(100).then(()=>{
+   // API.registerUserProfile(username, firstName, lastName)
+     //   .then( resp => resp)                
+     //   .catch( error => console.log(error)) 
+   // })
+    // }
   const onSignUpPressed = () => {
     API.registerUser({username, password})
                 .then( resp => console.log(resp))
-                .then(createUserProfile)
+            //    .then(createUserProfile)
                 .then(setUsername(''))
                 .then(setPassword(''))
                 .then(setFirstName(''))
-                .then(setLastName(''))  
-                registerUser();
+                .then(setLastName('')) 
+                .then(setErrorMessage(` ${firstName} נרשם בהצלחה `))
+
+               registerUser();
      
     
     navigation.reset({
@@ -71,8 +74,8 @@ export default function RegisterScreen({ navigation }) {
         returnKeyType="next"
         autoCapitalize="none"
         value={username}
-        onChange={evt => setUsername(evt.target.value)}
-       
+       // onChange={evt => setUsername(evt.target.value)}
+        onChangeText={(value) => setUsername(value)}
       />
       
       <TextInput
@@ -80,15 +83,17 @@ export default function RegisterScreen({ navigation }) {
         autoCapitalize="none"
         returnKeyType="done"
         value={password}
-        onChange={evt => setPassword(evt.target.value)}
+        onChangeText={(value) => setPassword(value)}
+        //onChange={evt => setPassword(evt.target.value)}
         secureTextEntry
       />
       <TextInput
         label="First Name"
         returnKeyType="next"
         value={firstName}
-        onChange={evt => setFirstName(evt.target.value)}
-       
+        //onChange={evt => setFirstName(evt.target.value)}
+        onChangeText={(value) => setFirstName(value)}
+
         autoCapitalize="none"
         autoCompleteType="firstName"
         textContentType="firstName"
@@ -97,8 +102,9 @@ export default function RegisterScreen({ navigation }) {
         label="Last Name"
         returnKeyType="next"
         value={lastName}
-        onChange={evt => setLastName(evt.target.value)}
-        
+        //onChange={evt => setLastName(evt.target.value)}
+        onChangeText={(value) => setLastName(value)}
+
         autoCapitalize="none"
         autoCompleteType="lastName"
         textContentType="lastName"

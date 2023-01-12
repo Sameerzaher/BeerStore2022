@@ -6,6 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, UserProfileSerializer, ProductsSerializer, SuppliersSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import permission_classes
 from .models import UserProfile, Products, Suppliers
 from rest_framework import status
 from rest_framework.response import Response
@@ -47,6 +48,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     serializer_class = UserProfileSerializer
     authentication_classes = (TokenAuthentication, )
 
+    @permission_classes([IsAuthenticated])
     @action(detail=True, methods=['POST'])
     def createUserProfile(self, request, pk=None):
         print("inside create user profile")
@@ -63,7 +65,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             givenLastName = request.data['lastName']
 
         newUser = UserProfile.objects.create(
-            user=getUser[0], username=username, firstName=givenFirstName, lastName=givenLastName, aboutMe=' ', hobbies=' ', badges=0, myGoal='')
+            user=getUser[0], username=username, firstName=givenFirstName, lastName=givenLastName, email='', userType='')
         newUser.save()
         print("user is: ", newUser)
 

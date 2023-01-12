@@ -10,7 +10,13 @@ export default function AddUserScreen({ navigation }) {
     <Background>
       <Logo />
       <Header>AddUserScreen</Header>
-      
+      <Button mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Dashboard' }],
+          })
+        }>back</Button>
      
     </Background>
   )

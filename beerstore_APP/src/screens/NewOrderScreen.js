@@ -10,7 +10,13 @@ export default function NewOrderScreen({ navigation }) {
         <Background>
           <Logo />
           <Header>NewOrderScreen</Header>
-          
+          <Button mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Dashboard' }],
+          })
+        }>back</Button>
          
         </Background>
       )

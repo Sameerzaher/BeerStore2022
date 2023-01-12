@@ -12,7 +12,13 @@ export default function Products({ navigation }) {
         <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Products Screen</Header>
-      
+      <Button mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Dashboard' }],
+          })
+        }>back</Button>
     </Background>
   )
 }

@@ -4,19 +4,21 @@ import Logo from '../components/Logo'
 import Header from '../components/Header'
 import Paragraph from '../components/Paragraph'
 import Button from '../components/Button'
+import BackButton from '../components/BackButton'
 
-export default function EditOrderScreen({ navigation }) {
-   return(
+export default function Suppliers({ navigation }) {
+  return (
     <Background>
-    <Logo />
-    <Header>EditOrderScreen</Header>
-    <Button mode="outlined"
+        <BackButton goBack={navigation.goBack} />
+      <Logo />
+      <Header>Suppliers Screen</Header>
+      <Button mode="outlined"
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'Orders' }],
+            routes: [{ name: 'Dashboard' }],
           })
         }>back</Button>
-        </Background>
-   )
-} 
+    </Background>
+  )
+}

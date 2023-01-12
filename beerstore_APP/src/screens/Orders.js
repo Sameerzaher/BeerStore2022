@@ -24,6 +24,13 @@ export default function Orders({ navigation }) {
             routes: [{ name: 'EditOrderScreen' }],
           })
         }>EditOrderScreen</Button>
+         <Button mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Dashboard' }],
+          })
+        }>back</Button>
         </Background>
    )
 } 

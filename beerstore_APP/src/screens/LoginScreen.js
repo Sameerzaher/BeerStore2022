@@ -62,44 +62,8 @@ export default function LoginScreen({ navigation }) {
   return (
     <Formik  initialValues={{ username: " ", password: " " }} 
     
-    onSubmit={(values) =>
-      
-      axios({
-        
-        method: "GET",
-        url: `http://127.0.0.1:8000/mainApp/users/1/`,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        data: getFormData(values),
-        
-      })
-        .then((response) => {
-          console.log(data);
-
-          if (response.status === 200) {
-            AsyncStorage.setItem(
-              "user_token",
-              JSON.stringify(response.data.access_token)
-            );
-            Alert.alert("Sucesso", "Login realizado com sucesso");
-            setSuccesss(true);
-            console.log(values.username);
-            console.log(data);
-
-            redirectToDashboard();
-          }
-        })
-        
-        .catch((error) => {
-          console.log(values.username);
-         // console.log(data);
-
-          console.log("error", error);
-          // console.log(`Error: ${error.response.data['error_description']}`)
-        })
-        
-    }>
+    
+    >
       
       {({ handleChange ,values , handleSubmit})=>(
         

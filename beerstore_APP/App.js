@@ -15,6 +15,7 @@ import {
   NewOrderScreen,
   Orders,
   EditOrderScreen,
+  Suppliers,
 } from './src/screens'
 import {
 
@@ -86,6 +87,7 @@ const Stack = createStackNavigator()
           <Stack.Screen name='NewOrderScreen' component={NewOrderScreen} />
           <Stack.Screen name='Orders' component={Orders} />
           <Stack.Screen name='EditOrderScreen' component={EditOrderScreen} />
+          <Stack.Screen name='Suppliers' component={Suppliers}/>
           <Stack.Screen
             name="ResetPasswordScreen"
             component={ResetPasswordScreen}

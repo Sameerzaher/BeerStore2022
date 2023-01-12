@@ -17,7 +17,7 @@ export class API extends React.Component{
         }
     static registerUser(body){ 
          console.log(body)
-         return fetch(`http://127.0.0.1:8000/rest-auth/register/`, {
+         return fetch(`http://127.0.0.1:8000/mainApp/users/`, {
                 method: 'POST',
                 headers: {
                      'Content-Type': 'application/json',
@@ -26,8 +26,19 @@ export class API extends React.Component{
                  body: JSON.stringify( body )
                  }).then( resp => resp.json())
              }
+        static getUserDetails(token){
+
+                return fetch(`http://127.0.0.1:8000/mainApp/userProfile/getUserDetails/`,{
+                    method: 'POST',
+                    headers: {  
+                        'Content-Type':'application/json',
+                        'Authorization': `Token ${token}` 
+                    }
+                })
+            }
      static registerUserProfile(username, firstName, lastName){ 
-            return fetch(`http://127.0.0.1:8000/mainApp/userProfile/1/createUserProfile/`, {
+        console.log(username,firstName,lastName);
+            return fetch(`http://127.0.0.1:8000/mainApp/userProfile/`, {
                 method: 'POST',
                 headers: {
                 
