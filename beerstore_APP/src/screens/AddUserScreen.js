@@ -14,7 +14,7 @@ export default function AddUserScreen({ navigation }) {
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'Dashboard' }],
+            routes: [{ name: 'UserScreen' }],
           })
         }>back</Button>
      

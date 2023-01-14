@@ -4,28 +4,19 @@ import Logo from '../components/Logo'
 import Header from '../components/Header'
 import Paragraph from '../components/Paragraph'
 import Button from '../components/Button'
-import BackButton from '../components/BackButton'
 
-export default function Suppliers({ navigation }) {
+export default function UserScreen({ navigation }) {
   return (
     <Background>
-        <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>Suppliers Screen</Header>
+      <Header>User Screen</Header>
       <Button mode="outlined"
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'AddSupplierScreen' }],
+            routes: [{ name: 'AddUserScreen' }],
           })
-        }>Add Supplier</Button>
-    <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'EditSupplierScreen' }],
-          })
-        }>Edit Supplier</Button>
+        }>Add User</Button>
       <Button mode="outlined"
         onPress={() =>
           navigation.reset({
@@ -33,6 +24,7 @@ export default function Suppliers({ navigation }) {
             routes: [{ name: 'Dashboard' }],
           })
         }>back</Button>
+     
     </Background>
   )
 }

@@ -6,31 +6,17 @@ import Paragraph from '../components/Paragraph'
 import Button from '../components/Button'
 import BackButton from '../components/BackButton'
 
-export default function Suppliers({ navigation }) {
+export default function EditSupplierScreen({ navigation }) {
   return (
     <Background>
         <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>Suppliers Screen</Header>
+      <Header>Edit Supplier Screen</Header>
       <Button mode="outlined"
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'AddSupplierScreen' }],
-          })
-        }>Add Supplier</Button>
-    <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'EditSupplierScreen' }],
-          })
-        }>Edit Supplier</Button>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Dashboard' }],
+            routes: [{ name: 'Suppliers' }],
           })
         }>back</Button>
     </Background>

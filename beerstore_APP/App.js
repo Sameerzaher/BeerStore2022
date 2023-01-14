@@ -16,6 +16,9 @@ import {
   Orders,
   EditOrderScreen,
   Suppliers,
+  AddSupplierScreen,
+  EditSupplierScreen,
+  UserScreen,
 } from './src/screens'
 import {
 
@@ -88,7 +91,10 @@ const Stack = createStackNavigator()
           <Stack.Screen name='Orders' component={Orders} />
           <Stack.Screen name='EditOrderScreen' component={EditOrderScreen} />
           <Stack.Screen name='Suppliers' component={Suppliers}/>
-          <Stack.Screen
+          <Stack.Screen name='AddSupplierScreen' component={AddSupplierScreen}/>
+          <Stack.Screen name='EditSupplierScreen' component={EditSupplierScreen}/>
+          <Stack.Screen name='UserScreen' component={UserScreen}/>
+          <Stack.Screen 
             name="ResetPasswordScreen"
             component={ResetPasswordScreen}
           />

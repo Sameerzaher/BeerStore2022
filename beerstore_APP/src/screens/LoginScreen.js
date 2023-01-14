@@ -10,15 +10,7 @@ import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import { API } from '../../api-service';
 import { useCookies } from 'react-cookie';
-import { navigate } from "react-navigation";
-import Dashboard from './Dashboard';
-import axios from 'axios';
-//import axiosAPI from '../services/api-axios'
 import { Formik } from "formik";
-
-//import { checkPluginState } from 'react-native-reanimated/lib/reanimated2/core'
-
-import AsyncStorage from "@react-native-community/async-storage";
 export default function LoginScreen({ navigation }) {
   const [ username, setUsername] = useState('');
   const [ password, setPassword] = useState('');
@@ -30,67 +22,48 @@ export default function LoginScreen({ navigation }) {
      if(token['mr-token'] )  
         if(token['mr-token'] === 'undefined' )
         setErrorMessage('שם משתמש או סיסמא לא נכונים');
-        else
-           {
-            navigation.reset({
-          index: 0,
-          routes: [{ name: 'Dashboard' }],
-        })
-           }      
+          
       
   }, [token])
- 
-  function redirectToDashboard(){
-    navigate("Dashboard");
-  }
-
-  //const csrftoken = getCookie('csrftoken');
-  //console.log(token);
   const loginClicked = () =>  {
+    console.log('inside login user')
     console.log(username, password)
     API.loginUser({username, password})
         //.then( resp => console.log(resp.username))
         .then( resp => setToken('mr-token', resp.token))
-        .catch( error => console.log(error))  
+        .catch( error => console.log(error)) 
+        if (username == "" || password == "") {
+          alert("username or password is empty");
+          return;
+        } 
         navigation.reset({
           index: 0,
           routes: [{ name: 'Dashboard' }],
         }) 
+        
 }
- 
-
   return (
     <Formik  initialValues={{ username: " ", password: " " }} 
-    
-    
-    >
-      
-      {({ handleChange ,values , handleSubmit})=>(
-        
+    >  
+      {({ handleChange ,values , handleSubmit})=>(   
     <Background>
       <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Welcome back.</Header>
-      
       <TextInput
-      
-        label="User Name"
-        returnKeyType="next"
-       // value={username}
+       label="User Name"
+       returnKeyType="next"
+       value={username}
        onChangeText={(value) => setUsername(value)}
-
-        autoCapitalize="none"
+       autoCapitalize="none"
       />
-       <Text>Welcome: {username}</Text>
       <TextInput
         label="Password"
         returnKeyType="done"
         value={password}
         onChangeText={(value) => setPassword(value)}
-      
         secureTextEntry
       />
-
       <View style={styles.forgotPassword}>
         <TouchableOpacity
           onPress={() => navigation.navigate('ResetPasswordScreen')}

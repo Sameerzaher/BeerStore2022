@@ -56,7 +56,10 @@ export default function RegisterScreen({ navigation }) {
                 .then(setErrorMessage(` ${firstName} נרשם בהצלחה `))
 
                registerUser();
-     
+               if (username == "" || password == "" || firstName =="" || lastName =="") {
+                alert("one or more of the fileds is empty");
+                return;
+              } 
     
     navigation.reset({
       index: 0,

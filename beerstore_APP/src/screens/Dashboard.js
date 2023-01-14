@@ -38,9 +38,9 @@ export default function Dashboard({ navigation }) {
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'AddUserScreen' }],
+            routes: [{ name: 'UserScreen' }],
           })
-        }>Add User</Button>
+        }>Users</Button>
       <Button mode="outlined"
         onPress={() =>
           navigation.reset({
