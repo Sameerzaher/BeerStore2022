@@ -19,6 +19,11 @@ import {
   AddSupplierScreen,
   EditSupplierScreen,
   UserScreen,
+  DeleteUserScreen,
+  AddProductScreen,
+  DeleteProductScreen,
+  EditProductScreen,
+
 } from './src/screens'
 import {
 
@@ -94,6 +99,10 @@ const Stack = createStackNavigator()
           <Stack.Screen name='AddSupplierScreen' component={AddSupplierScreen}/>
           <Stack.Screen name='EditSupplierScreen' component={EditSupplierScreen}/>
           <Stack.Screen name='UserScreen' component={UserScreen}/>
+          <Stack.Screen name='DeleteUserScreen' component={DeleteUserScreen}/>
+          <Stack.Screen name='AddProductScreen' component={AddProductScreen}/>
+          <Stack.Screen name='EditProductScreen' component={EditProductScreen}/>
+          <Stack.Screen name='DeleteProductScreen' component={DeleteProductScreen}/>
           <Stack.Screen 
             name="ResetPasswordScreen"
             component={ResetPasswordScreen}

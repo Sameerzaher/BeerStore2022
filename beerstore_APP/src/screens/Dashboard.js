@@ -25,7 +25,7 @@ export default function Dashboard({ navigation }) {
     <Background>
       <Logo />
 
-      <Header>Let’s start</Header>
+      <Header>Dashboard</Header>
       <Text>username: {}</Text>
       <Button mode="outlined"
         onPress={() =>
