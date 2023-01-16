@@ -1,89 +1,89 @@
-import React, { useState , useEffect } from 'react'
-import { TouchableOpacity, StyleSheet, View, Switch} from 'react-native'
-import { Text } from 'react-native-paper'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from '../components/Button'
-import TextInput from '../components/TextInput'
-import BackButton from '../components/BackButton'
-import { theme } from '../core/theme'
-import { API } from '../../api-service';
-import { useCookies } from 'react-cookie';
-import { Formik } from "formik";
-export default function LoginScreen({ navigation }) {
-  const [ username, setUsername] = useState('');
-  const [ password, setPassword] = useState('');
-  const[ token, setToken] = useCookies(['mr-token']);
+import React, {useState, useEffect} from 'react';
+import {TouchableOpacity, StyleSheet, View, Switch} from 'react-native';
+import {Text} from 'react-native-paper';
+import Background from '../components/Background';
+import Logo from '../components/Logo';
+import Header from '../components/Header';
+import Button from '../components/Button';
+import TextInput from '../components/TextInput';
+import BackButton from '../components/BackButton';
+import {theme} from '../core/theme';
+import {API} from '../../api-service';
+import {useCookies} from 'react-cookie';
+import {Formik} from 'formik';
+export default function LoginScreen({navigation}) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useCookies(['mr-token']);
   const [success, setSuccesss] = useState(false);
 
-  useEffect( () =>{
+  useEffect(() => {
     console.log(token);
-     if(token['mr-token'] )  
-        if(token['mr-token'] === 'undefined' )
+    if (token['mr-token']) {
+      if (token['mr-token'] === 'undefined') {
         setErrorMessage('שם משתמש או סיסמא לא נכונים');
-          
-      
-  }, [token])
-  const loginClicked = () =>  {
-    console.log('inside login user')
-    console.log(username, password)
+      }
+    }
+  }, [token]);
+  const loginClicked = () => {
+    console.log('inside login user');
+    console.log(username, password);
     API.loginUser({username, password})
-        //.then( resp => console.log(resp.username))
-        .then( resp => setToken('mr-token', resp.token))
-        .catch( error => console.log(error)) 
-        if (username == "" || password == "") {
-          alert("username or password is empty");
-          return;
-        } 
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Dashboard' }],
-        }) 
-        
-}
+      //.then( resp => console.log(resp.username))
+      .then(resp => setToken('mr-token', resp.token))
+      .catch(error => console.log(error));
+    if (username == '' || password == '') {
+      alert('username or password is empty');
+      return;
+    }
+
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Dashboard'}],
+      username: console.log(username),
+    });
+  };
   return (
-    <Formik  initialValues={{ username: " ", password: " " }} 
-    >  
-      {({ handleChange ,values , handleSubmit})=>(   
-    <Background>
-      <BackButton goBack={navigation.goBack} />
-      <Logo />
-      <Header>Welcome back.</Header>
-      <TextInput
-       label="User Name"
-       returnKeyType="next"
-       value={username}
-       onChangeText={(value) => setUsername(value)}
-       autoCapitalize="none"
-      />
-      <TextInput
-        label="Password"
-        returnKeyType="done"
-        value={password}
-        onChangeText={(value) => setPassword(value)}
-        secureTextEntry
-      />
-      <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ResetPasswordScreen')}
-        >
-          <Text style={styles.forgot}>Forgot your password?</Text>
-        </TouchableOpacity>
-      </View>
-      <Button mode="contained" onPress={loginClicked}>
-        Login
-      </Button>
-      <View style={styles.row}>
-        <Text>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
-          <Text style={styles.link}>Sign up</Text>
-        </TouchableOpacity>
-      </View>
-    </Background>
+    <Formik initialValues={{username: ' ', password: ' '}}>
+      {({handleChange, values, handleSubmit}) => (
+        <Background>
+          <BackButton goBack={navigation.goBack} />
+          <Logo />
+          <Header>Welcome back.</Header>
+          <TextInput
+            label="User Name"
+            returnKeyType="next"
+            value={username}
+            onChangeText={value => setUsername(value)}
+            autoCapitalize="none"
+          />
+          <TextInput
+            label="Password"
+            returnKeyType="done"
+            value={password}
+            onChangeText={value => setPassword(value)}
+            secureTextEntry
+          />
+          <View style={styles.forgotPassword}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ResetPasswordScreen')}>
+              <Text style={styles.forgot}>Forgot your password?</Text>
+            </TouchableOpacity>
+          </View>
+          <Button mode="contained" onPress={loginClicked}>
+            Login
+          </Button>
+          <View style={styles.row}>
+            <Text>Don’t have an account? </Text>
+            <TouchableOpacity
+              onPress={() => navigation.replace('RegisterScreen')}>
+              <Text style={styles.link}>Sign up</Text>
+            </TouchableOpacity>
+          </View>
+        </Background>
       )}
     </Formik>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -104,4 +104,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: theme.colors.primary,
   },
-})
+});

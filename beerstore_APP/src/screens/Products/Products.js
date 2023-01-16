@@ -1,45 +1,67 @@
-import React from 'react'
-import Background from '../../components/Background'
-import Logo from '../../components/Logo'
-import Header from '../../components/Header'
-import Paragraph from '../../components/Paragraph'
-import Button from '../../components/Button'
-import BackButton from '../../components/BackButton'
+import React from 'react';
+import Background from '../../components/Background';
+import Logo from '../../components/Logo';
+import Header from '../../components/Header';
+import Paragraph from '../../components/Paragraph';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
 
-export default function Products({ navigation }) {
+export default function Products({navigation}) {
   return (
     <Background>
-        <BackButton goBack={navigation.goBack} />
+      <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Products Screen</Header>
-      <Button mode="outlined"
+        <Button
+            mode="outlined"
+            onPress={() =>
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: 'AllProductScreen'}],
+                })
+            }>
+            All Product
+        </Button>
+      <Button
+        mode="outlined"
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'AddProductScreen' }],
+            routes: [{name: 'AddProductScreen'}],
           })
-        }>Add Product</Button>
-      <Button mode="outlined"
+        }>
+        Add Product
+      </Button>
+      <Button
+        mode="outlined"
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'EditProductScreen' }],
+            routes: [{name: 'EditProductScreen'}],
           })
-        }>Edit Product</Button>
-        <Button mode="outlined"
+        }>
+        Edit Product
+      </Button>
+      <Button
+        mode="outlined"
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'DeleteProductScreen' }],
+            routes: [{name: 'DeleteProductScreen'}],
           })
-        }>Delete Product</Button>  
-      <Button mode="outlined"
+        }>
+        Delete Product
+      </Button>
+      <Button
+        mode="outlined"
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{ name: 'Dashboard' }],
+            routes: [{name: 'Dashboard'}],
           })
-        }>back</Button>
+        }>
+        back
+      </Button>
     </Background>
-  )
+  );
 }
