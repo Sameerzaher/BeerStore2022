@@ -5,11 +5,11 @@ import Header from '../../components/Header'
 import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
 
-export default function AllUsersScreen({ navigation }) {
+export default function AddUserScreen({ navigation }) {
   return (
     <Background>
       <Logo />
-      <Header>AllUsersScreen</Header>
+      <Header>AddUserScreen</Header>
       <Button mode="outlined"
         onPress={() =>
           navigation.reset({
