@@ -10,7 +10,7 @@ import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import { API } from '../../api-service';
 import { useCookies } from 'react-cookie';
-import { Formik } from "formik";
+
 export default function LoginScreen({ navigation }) {
   const [ username, setUsername] = useState('');
   const [ password, setPassword] = useState('');
@@ -26,7 +26,10 @@ export default function LoginScreen({ navigation }) {
       
   }, [token])
   const loginClicked = () =>  {
+    //const passwordError = passwordValidator(password.value)
+
     console.log('inside login user')
+    
     console.log(username, password)
     API.loginUser({username, password})
         //.then( resp => console.log(resp.username))
@@ -43,9 +46,6 @@ export default function LoginScreen({ navigation }) {
         
 }
   return (
-    <Formik  initialValues={{ username: " ", password: " " }} 
-    >  
-      {({ handleChange ,values , handleSubmit})=>(   
     <Background>
       <BackButton goBack={navigation.goBack} />
       <Logo />
@@ -81,9 +81,7 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
       </View>
     </Background>
-      )}
-    </Formik>
-  )
+      )
 }
 
 const styles = StyleSheet.create({

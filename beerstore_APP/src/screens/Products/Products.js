@@ -5,13 +5,20 @@ import Header from '../../components/Header'
 import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
 import BackButton from '../../components/BackButton'
-
+import { theme } from '../../core/theme'
 export default function Products({ navigation }) {
   return (
     <Background>
-        <BackButton goBack={navigation.goBack} />
+      <BackButton goBack={navigation.goBack}/>
       <Logo />
       <Header>Products Screen</Header>
+      <Button mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'AllProductScreen' }],
+          })
+        }>All Products</Button>
       <Button mode="outlined"
         onPress={() =>
           navigation.reset({

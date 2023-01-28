@@ -159,7 +159,54 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 class ProductsViewSet(viewsets.ModelViewSet):
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
+    permission_classes = (AllowAny,)
     #authentication_classes = (TokenAuthentication, )
+    #  Update or create a userLessons
+    #permission_classes = [IsAuthenticated]
+
+    @action(detail=False, methods=['post'])
+    def AddNewProduct(self, request):
+        # if request.method == 'POST':
+        #     name = request.POST.get('name')
+        #     SupplierName = request.POST.get('supplier_name')
+        #     amount = request.POST.get('amount')
+
+        #     price = request.POST.get('price')
+
+        #     try:
+        #         product = Products.objects.create(
+        #             name=name, supplier_name=SupplierName, amount=amount, price=price)
+        #         product.save()
+        #         return JsonResponse({'status': 'success', 'message': 'Product added successfully'})
+        #     except Exception as e:
+        #         return JsonResponse({'status': 'error', 'message': str(e)})
+        # else:
+        #     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+        # serializer = ProductsSerializer(data=request.data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        givenProductName = ' '
+        givenSupplierName = ' '
+        givenAmount = ' '
+        givenPrice = ' '
+       # if 'name' in request.data:
+        givenProductName = request.POST.get('name')
+        # if 'Supplier name' in request.data:
+        givenSupplierName = request.POST.get('supplier_name')
+        # if 'Amount' in request.data:
+        givenAmount = request.POST.get('amount')
+       # if 'Price' in request.data:
+        givenPrice = request.POST.get('price')
+
+        newProduct = Products.objects.create(
+            name=givenProductName, supplier_name=givenSupplierName, amount=givenAmount, price=givenPrice)
+        newProduct.save()
+        print("Product is: ", newProduct)
+
+        response = {'message': 'created', 'results': newProduct}
+        return Response(response, status=status.HTTP_200_OK)
 
 
 class SuppliersViewSet(viewsets.ModelViewSet):

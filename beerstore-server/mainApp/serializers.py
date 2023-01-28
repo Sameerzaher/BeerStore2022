@@ -28,7 +28,26 @@ class ProductsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Products
-        fields = ('id', 'name', 'supplier name', 'amount', )
+        fields = ('id', 'name', 'supplier_name', 'amount', 'price')
+        read_only_fields = ('id',)
+
+    def validate_name(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError(
+                "Name should be at least 3 characters long.")
+        return value
+
+    def validate_price(self, value):
+        if value < 0:
+            raise serializers.ValidationError(
+                "Price should be greater than zero.")
+        return value
+
+    def validate_amount(self, value):
+        if value < 0:
+            raise serializers.ValidationError(
+                "Amount should be greater than zero.")
+        return value
 
 
 class SuppliersSerializer(serializers.ModelSerializer):
