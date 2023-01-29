@@ -21,6 +21,11 @@ export default function EditProd({ navigation , route}) {
   const [Newprice,NewsetPrice] = useState('');
   const onSubmit = () => {
     API.updateProductDetails(id,NewProductname,Newsuppliername,Newamount,Newprice)
+    .catch( error => console.log(error)) 
+        if (NewProductname == "" || Newsuppliername == "" || Newamount == ""|| Newprice == "") {
+          alert("one of the Felids is empty");
+          return;
+        } 
     Alert.alert(
         'Updated Product ID ' ,id
          

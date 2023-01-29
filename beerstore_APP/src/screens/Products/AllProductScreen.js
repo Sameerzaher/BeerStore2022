@@ -19,14 +19,13 @@ export default function AllProductScreen({navigation, route}) {
     };
 const renderProduct = ({item}) => {
   return(  
-    <View style={{margin:10,borderWidth:0.5,padding:10}}>
-    <Text style={{color:"black",fontSize:16,fontWeight:"bold"}}>
+    <View style={{margin:20,borderWidth:0.5,padding:40}}>
+    <Text style={{color:"black",fontSize:30,fontWeight:"bold"}}>
       product {item.id}
     </Text>
-    <Text style={{color:"black"}}>name : {item.name}</Text>
-    <Text style={{color:"black"}}>supplier : {item.supplier_name}</Text>
-    <Text style={{color:"black"}}>amount : {item.amount}</Text>
-    <Text style={{color:"black"}}>price : {item.price}</Text>
+    <Text style={{color:"black", fontSize:20}}>name : {item.name}</Text>
+    <Text style={{color:"black", fontSize:20}}>amount : {item.amount}</Text>
+    <Text style={{color:"black", fontSize:20}}>price : {item.price}</Text>
   </View>
 
   )
