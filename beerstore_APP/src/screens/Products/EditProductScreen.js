@@ -7,46 +7,37 @@ import Button from '../../components/Button'
 import BackButton from '../../components/BackButton'
 import TextInput from '../../components/TextInput'
 import { API } from '../../../api-service'
-import { Alert, Modal, StyleSheet, Text, Pressable, View, Platform } from "react-native";
-//import Popup from '../../components/popup'
+import { Alert, Modal, StyleSheet, Text, Pressable, View, Platform, SafeAreaView, TouchableOpacity } from "react-native";
 
-//hooks or class component
-
-export default function EditProductScreen({ navigation }) {
-  const [Productname,setProductname] = useState('');
+export default function EditProductScreen({navigation, route}) {
+  const {username} = route.params;
+const [ProductID,setProductID] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  
+  const [product,setProduct] = useState('');
   const onSubmit = () => {
-    API.getProdctByID(Productname)
+    API.getProdctByID(ProductID)
     //setModalVisible(true)
-   //console.log()
-  }
-  openAlert=()=>{
-    alert('Alert with one button');
+   console.log("Sameer",ProductID)
+   const id = ProductID
+   console.log(id);
+   
+   navigation.navigate('EditProd',{username: username , id: id  });
   }
   return (
     <Background>
         <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>Edit Product Screen</Header>
       <TextInput
        label="Product ID "
        returnKeyType="next"
-       value={Productname}
-       onChangeText={(value) => setProductname(value)}
+       value={ProductID}
+       onChangeText={(value) => setProductID(value)}
        autoCapitalize="none"
       />
       <View>
-     <Button title='1 button salert' onPress={this.openAlert}/>
     </View>
       <Button mode="outlined" onPress={onSubmit } >Submit</Button>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Products' }],
-          })
-        }>back</Button>
+      
     </Background>
   )
   

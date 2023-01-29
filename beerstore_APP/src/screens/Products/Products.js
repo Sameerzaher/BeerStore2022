@@ -6,47 +6,47 @@ import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
 import BackButton from '../../components/BackButton'
 import { theme } from '../../core/theme'
-export default function Products({ navigation }) {
+export default function Products({ navigation, route  }) {
+  const{username} = route.params
   return (
     <Background>
       <BackButton goBack={navigation.goBack}/>
       <Logo />
       <Header>Products Screen</Header>
       <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'AllProductScreen' }],
-          })
-        }>All Products</Button>
+         onPress={
+          () => navigation.navigate('AllProductScreen', {username: username})
+          // navigation.reset({
+          //   index: 0,
+          //   routes: [{name: 'Orders'}],
+          // })
+        }>
+         All Products</Button>
       <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'AddProductScreen' }],
-          })
-        }>Add Product</Button>
+       onPress={
+        () => navigation.navigate('AddProductScreen', {username: username})
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{name: 'Orders'}],
+        // })
+      }>Add Product</Button>
       <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'EditProductScreen' }],
-          })
+        onPress={
+          () => navigation.navigate('EditProductScreen', {username: username})
+          // navigation.reset({
+          //   index: 0,
+          //   routes: [{name: 'Orders'}],
+          // })
         }>Edit Product</Button>
         <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'DeleteProductScreen' }],
-          })
+        onPress={
+          () => navigation.navigate('DeleteProductScreen', {username: username})
+          // navigation.reset({
+          //   index: 0,
+          //   routes: [{name: 'Orders'}],
+          // })
         }>Delete Product</Button>  
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Dashboard' }],
-          })
-        }>back</Button>
+    
     </Background>
   )
 }

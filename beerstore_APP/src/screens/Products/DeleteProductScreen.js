@@ -8,9 +8,10 @@ import BackButton from '../../components/BackButton'
 import { API } from '../../../api-service'
 import TextInput from '../../components/TextInput'
 import { Alert } from 'react-native'
-export default function DeleteProductScreen({ navigation }) {
+export default function DeleteProductScreen( {navigation, route }) {
+  const {username} = route.params;
   const [Productname,setProductname] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  //const [modalVisible, setModalVisible] = useState(false);
   
   const onSubmit = () => {
     API.DeleteProdctByID(Productname)
@@ -19,9 +20,9 @@ export default function DeleteProductScreen({ navigation }) {
     //setModalVisible(true)
    //console.log()
    Alert.alert(
-    Productname 
+    'Deleted Product' ,Productname
      
-   )
+   );
   }
   return (
     <Background>
@@ -35,14 +36,7 @@ export default function DeleteProductScreen({ navigation }) {
        onChangeText={(value) => setProductname(value)}
        autoCapitalize="none"
       />
-      <Button mode="outlined" onPress={onSubmit } >Submit</Button>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Products' }],
-          })
-        }>back</Button>
+      <Button mode="outlined" onPress={onSubmit } >Delete</Button>
     </Background>
   )
 }

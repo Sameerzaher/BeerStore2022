@@ -36,3 +36,12 @@ class Suppliers(models.Model):
     name = models.CharField(max_length=32)
     Products = models.ManyToManyField(Products, related_name='Products')
     address = models.CharField(max_length=32)
+
+
+class Orders(models.Model):
+    Delivery_name = models.CharField(max_length=32)
+    Products = models.ManyToManyField(Products, related_name='products')
+    total = models.DecimalField(max_digits=10, decimal_places=3)
+    order_date = models.DateTimeField(null=True)
+    delivery_date = models.DateField(null=True)
+    address = models.CharField(max_length=32)

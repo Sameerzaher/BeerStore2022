@@ -6,19 +6,15 @@ import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
 import BackButton from '../../components/BackButton'
 
-export default function EditSupplierScreen({ navigation }) {
+export default function EditSupplierScreen({ navigation , route}) {
+  const {username} = route.params;
+
   return (
     <Background>
         <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Edit Supplier Screen</Header>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Suppliers' }],
-          })
-        }>back</Button>
+     
     </Background>
   )
 }

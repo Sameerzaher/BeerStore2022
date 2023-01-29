@@ -25,6 +25,7 @@ import {
   EditProductScreen,
   AllUsersScreen,
   AllProductScreen,
+  EditProd,
 
 } from './src/screens'
 import {
@@ -104,9 +105,12 @@ const Stack = createStackNavigator()
           <Stack.Screen name='DeleteUserScreen' component={DeleteUserScreen}/>
           <Stack.Screen name='AddProductScreen' component={AddProductScreen}/>
           <Stack.Screen name='EditProductScreen' component={EditProductScreen}/>
+          <Stack.Screen name='EditProd' component={EditProd}/>
           <Stack.Screen name='DeleteProductScreen' component={DeleteProductScreen}/>
           <Stack.Screen name='AllUsersScreen' component={AllUsersScreen}/>
           <Stack.Screen name='AllProductScreen' component={AllProductScreen}/>
+        
+
           <Stack.Screen 
             name="ResetPasswordScreen"
             component={ResetPasswordScreen}

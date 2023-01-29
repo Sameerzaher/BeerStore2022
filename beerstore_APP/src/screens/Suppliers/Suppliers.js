@@ -6,33 +6,29 @@ import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
 import BackButton from '../../components/BackButton'
 
-export default function Suppliers({ navigation }) {
+export default function Suppliers({ navigation, route }) {
+  const{username} = route.params
   return (
     <Background>
         <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Suppliers Screen</Header>
       <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'AddSupplierScreen' }],
-          })
-        }>Add Supplier</Button>
+          onPress={
+            () => navigation.navigate('AddSupplierScreen', {username: username})
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [{name: 'Orders'}],
+            // })
+          }>Add Supplier</Button>
     <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'EditSupplierScreen' }],
-          })
-        }>Edit Supplier</Button>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Dashboard' }],
-          })
-        }>back</Button>
+          onPress={
+            () => navigation.navigate('EditSupplierScreen', {username: username})
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [{name: 'Orders'}],
+            // })
+          }>Edit Supplier</Button>
     </Background>
   )
 }

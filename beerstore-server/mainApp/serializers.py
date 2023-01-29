@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from .models import UserProfile, Products, Suppliers
+from .models import UserProfile, Products, Suppliers, Orders
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -55,3 +55,11 @@ class SuppliersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Suppliers
         fields = ('id', 'name', 'Products', 'address', )
+
+
+class OrdersSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Orders
+        fields = ('id', 'Delivery_name', 'Products', 'total',
+                  'order_date', 'delivery_date', 'address')

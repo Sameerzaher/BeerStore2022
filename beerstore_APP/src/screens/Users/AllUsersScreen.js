@@ -18,9 +18,11 @@ import {
   ToastAndroid,
   ActivityIndicator,
 } from 'react-native';
+import BackButton from '../../components/BackButton'
 import { API } from '../../../api-service';
 import UserListItem from '../../components/UserListItem'
-export default function AllUsersScreen({ navigation }) {
+export default function AllUsersScreen({ navigation , route }) {
+  const {username} = route.params;
   const [UserList, setUserList] = useState([]);
   useEffect(() => {
     console.log("aaaa");
@@ -29,15 +31,10 @@ export default function AllUsersScreen({ navigation }) {
   console.log(UserList);
   return (
     <Background>
+    <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>AllUsersScreen</Header>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'UserScreen' }],
-          })
-        }>back</Button>
+
       <ScrollView>
                 <View>
                     <Text>

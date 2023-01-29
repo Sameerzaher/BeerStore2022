@@ -4,41 +4,39 @@ import Logo from '../../components/Logo'
 import Header from '../../components/Header'
 import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
-
-export default function UserScreen({ navigation }) {
+import BackButton from '../../components/BackButton'
+export default function UserScreen({ navigation, route }) {
+  const{username} = route.params;
   return (
     <Background>
+  <BackButton goBack={navigation.goBack} />
+
       <Logo />
       <Header>User Screen</Header>
       <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'AddUserScreen' }],
-          })
-        }>Add User</Button>
+     onPress={
+      () => navigation.navigate('AddUserScreen', {username: username})
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{name: 'Orders'}],
+      // })
+    }>Add User</Button>
     <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'DeleteUserScreen' }],
-          })
+        onPress={
+          () => navigation.navigate('DeleteUserScreen', {username: username})
+          // navigation.reset({
+          //   index: 0,
+          //   routes: [{name: 'Orders'}],
+          // })
         }>Delete User</Button>
      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'AllUsersScreen' }],
-          })
+        onPress={
+          () => navigation.navigate('AllUsersScreen', {username: username})
+          // navigation.reset({
+          //   index: 0,
+          //   routes: [{name: 'Orders'}],
+          // })
         }>All Users</Button>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Dashboard' }],
-          })
-        }>back</Button>
-     
     </Background>
   )
 }

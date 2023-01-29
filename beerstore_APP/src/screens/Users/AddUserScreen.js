@@ -4,20 +4,16 @@ import Logo from '../../components/Logo'
 import Header from '../../components/Header'
 import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
+import BackButton from '../../components/BackButton'
 
-export default function AddUserScreen({ navigation }) {
+export default function AddUserScreen({ navigation , route}) {
+  const {username} = route.params;
+
   return (
     <Background>
+        <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>AddUserScreen</Header>
-      
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'UserScreen' }],
-          })
-        }>back</Button>
+      <Header>Add User Screen</Header>
      
     </Background>
   )

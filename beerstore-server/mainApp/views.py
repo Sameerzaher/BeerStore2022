@@ -4,10 +4,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, UserProfileSerializer, ProductsSerializer, SuppliersSerializer
+from .serializers import UserSerializer, UserProfileSerializer, ProductsSerializer, SuppliersSerializer, OrdersSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import permission_classes
-from .models import UserProfile, Products, Suppliers
+from .models import UserProfile, Products, Suppliers, Orders
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -208,8 +208,58 @@ class ProductsViewSet(viewsets.ModelViewSet):
         response = {'message': 'created', 'results': newProduct}
         return Response(response, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['POST'])
+    def getAllProducts(self, request, pk=None):
+        print("im here")
+        product = request.product
+        print("product from query is: ", product)
+        arr = []
+        p = Products.objects.get(product=product)
+        # print("user mail is: ", u.email)
+        print("Product name is: ", p.name)
+        print("Supplier name is: ", p.supplier_name)
+        print("amount is ", p.amount)
+        print("price is ", p.price)
+
+        # userDetails= User.objects.filter(user=user.id, course=pk)
+        # for userCourse in userCourses:
+        p.name = product
+        serializers = ProductsSerializer(p, many=False)
+        #     arr.append(serializers.data)
+
+        response = {'message': 'Get', 'results': serializers.data}
+        return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['POST'])
+    def UpdateProductDetails(self, request, pk=None):
+        try:
+            product = Products.objects.get(pk=pk)
+        except Products.DoesNotExist:
+            return Response({'message': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        name = request.data.get('name', product.name)
+        supplier_name = request.data.get(
+            'supplier_name', product.supplier_name)
+        amount = request.data.get('amount', product.amount)
+        price = request.data.get('price', product.price)
+
+        product.name = name
+        product.supplier_name = supplier_name
+        product.amount = amount
+        product.price = price
+
+        product.save()
+        serializer = ProductsSerializer(product)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class SuppliersViewSet(viewsets.ModelViewSet):
     queryset = Suppliers.objects.all()
     serializer_class = SuppliersSerializer
+    #authentication_classes = (TokenAuthentication, )
+
+
+class OrdersViewSet(viewsets.ModelViewSet):
+    queryset = Orders.objects.all()
+    serializer_class = OrdersSerializer
     #authentication_classes = (TokenAuthentication, )

@@ -65,6 +65,7 @@ export class API extends React.Component{
     static getAllProducts(){
         console.log("inside getAllProducts fun")
         return fetch(`http://127.0.0.1:8000/mainApp/Products/`, {
+            
                 method: 'GET',
                 headers: {
                 
@@ -124,6 +125,24 @@ export class API extends React.Component{
             })
             .then( resp => resp.json())
             console.log("Deleted")
-    }    
+    } 
+    static updateProductDetails(id, name, suppliername, amount, price ){ 
+        console.log("inside updateProductDetails fun")
+        console.log(id, name, suppliername, amount, price)
+        return fetch(`http://127.0.0.1:8000/mainApp/Products/${id}/UpdateProductDetails/`, {
+           method: 'POST',
+           headers: {
            
+             'Content-Type': 'application/json',
+             //'Authorization': `Token ${token}` 
+                },
+                body: JSON.stringify({'name' : name, 'supplier_name' : suppliername,'amount' : amount,
+                'price' : price,
+            })  
+            
+                   
+           })
+           console.log(body);
+               
+        }       
 }

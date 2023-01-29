@@ -4,19 +4,16 @@ import Logo from '../../components/Logo'
 import Header from '../../components/Header'
 import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
+import BackButton from '../../components/BackButton'
 
-export default function DeleteUserScreen({ navigation }) {
+export default function DeleteUserScreen({ navigation , route}) {
+  const {username} = route.params;
+
   return (
     <Background>
+        <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>DeleteUserScreen</Header>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'UserScreen' }],
-          })
-        }>back</Button>
+      <Header>Delete User Screen</Header>
      
     </Background>
   )

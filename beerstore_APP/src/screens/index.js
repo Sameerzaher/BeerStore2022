@@ -16,5 +16,7 @@ export { default as DeleteUserScreen } from './Users/DeleteUserScreen'
 export { default as AddProductScreen } from './Products/AddProductScreen'
 export { default as DeleteProductScreen } from './Products/DeleteProductScreen'
 export { default as EditProductScreen } from './Products/EditProductScreen'
+export { default as EditProd } from './Products/EditProd'
 export { default as AllUsersScreen } from './Users/AllUsersScreen'
 export { default as AllProductScreen } from './Products/AllProductScreen'
+

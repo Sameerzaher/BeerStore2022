@@ -8,7 +8,8 @@ import BackButton from '../../components/BackButton'
 import TextInput from '../../components/TextInput'
 import { SelectList } from 'react-native-dropdown-select-list'
 import {API} from '../../../api-service'
-export default function AddSupplierScreen({ navigation }) {
+export default function AddSupplierScreen({ navigation ,route }) {
+  const {username} = route.params;
   const [ suppliername, setsuppliername] = useState('');
   const [ productname, setproductname] = useState('');
   //const [ password, setPassword] = useState('');
@@ -23,7 +24,7 @@ export default function AddSupplierScreen({ navigation }) {
   }, [])
   
   
-  console.log(productsList[1]);
+  console.log(productsList);
 
   return (
     <Background>
@@ -47,13 +48,7 @@ export default function AddSupplierScreen({ navigation }) {
        
       </SelectList>
       <Button mode="outlined">Submit</Button>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Suppliers' }],
-          })
-        }>back</Button>
+      
     </Background>
   )
 }

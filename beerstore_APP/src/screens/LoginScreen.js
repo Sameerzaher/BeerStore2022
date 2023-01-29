@@ -15,7 +15,7 @@ export default function LoginScreen({ navigation }) {
   const [ username, setUsername] = useState('');
   const [ password, setPassword] = useState('');
   const[ token, setToken] = useCookies(['mr-token']);
-  const [success, setSuccesss] = useState(false);
+  //const [success, setSuccesss] = useState(false);
 
   useEffect( () =>{
     console.log(token);
@@ -39,10 +39,7 @@ export default function LoginScreen({ navigation }) {
           alert("username or password is empty");
           return;
         } 
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Dashboard' }],
-        }) 
+        navigation.navigate('Dashboard', {username: username});
         
 }
   return (
@@ -64,13 +61,7 @@ export default function LoginScreen({ navigation }) {
         onChangeText={(value) => setPassword(value)}
         secureTextEntry
       />
-      <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ResetPasswordScreen')}
-        >
-          <Text style={styles.forgot}>Forgot your password?</Text>
-        </TouchableOpacity>
-      </View>
+      
       <Button mode="contained" onPress={loginClicked}>
         Login
       </Button>

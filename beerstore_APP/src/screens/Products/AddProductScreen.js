@@ -8,7 +8,9 @@ import BackButton from '../../components/BackButton'
 import TextInput from '../../components/TextInput'
 import { Text } from 'react-native-paper'
 import { API } from '../../../api-service'
-export default function AddProductScreen({ navigation }) {
+import {Alert} from 'react-native'
+export default function AddProductScreen({ navigation, route }) {
+  const {username} = route.params;
   const [Productname,setProductname] = useState('');
   const [suppliername,setsuppliername] = useState('');
   const [amount,setAmount] = useState('');
@@ -22,7 +24,7 @@ export default function AddProductScreen({ navigation }) {
           alert("one of the Felids is empty");
           return;
         } 
-
+      Alert.alert('added Product');
   }
   return (
     <Background>
@@ -60,13 +62,7 @@ export default function AddProductScreen({ navigation }) {
       />
       {console.log(Productname,suppliername,amount,price)}
       <Button mode="outlined" onPress={onSubmit}>Submit</Button>
-      <Button mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Products' }],
-          })
-        }>back</Button>
+     
     </Background>
   )
 }
