@@ -15,6 +15,14 @@ export default function Suppliers({ navigation, route }) {
       <Header>Suppliers Screen</Header>
       <Button mode="outlined"
           onPress={
+            () => navigation.navigate('AllSupplierScreen', {username: username})
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [{name: 'Orders'}],
+            // })
+          }>All Suppliers</Button>
+      <Button mode="outlined"
+          onPress={
             () => navigation.navigate('AddSupplierScreen', {username: username})
             // navigation.reset({
             //   index: 0,
@@ -29,6 +37,14 @@ export default function Suppliers({ navigation, route }) {
             //   routes: [{name: 'Orders'}],
             // })
           }>Edit Supplier</Button>
+    <Button mode="outlined"
+          onPress={
+            () => navigation.navigate('DeleteSupplierScreen', {username: username})
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [{name: 'Orders'}],
+            // })
+          }>Delete Supplier</Button>
     </Background>
   )
 }

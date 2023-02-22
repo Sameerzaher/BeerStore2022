@@ -144,5 +144,56 @@ export class API extends React.Component{
            })
            console.log(body);
                
-        }       
+        }
+        static AddNewSupplier(SupplierName,SupplierEmail,Prods,Address){
+            console.log("sameer",SupplierName,SupplierEmail,Prods,Address)
+            console.log("inside AddNewSupplier fun")
+            return fetch(`http://127.0.0.1:8000/mainApp/Suppliers/`, {
+                    method: 'POST',
+                    headers: {
+                    
+                      'Content-Type': 'application/json',
+                      //'Authorization': `Token ${token}` 
+                         },
+                         body: JSON.stringify({'name' : SupplierName, 'email' : SupplierEmail,'Products' : Prods,'address' : Address} )  
+                            
+                    })
+                    .then(resp => {
+                        if(resp.status === 201){
+                            // Product added successfully
+                            console.log("New Supplier Added")
+                        }else{
+                           // console.log(resp)
+                        }
+                    })
+                    .catch(error => {
+                        // handle error
+                    });
+        } 
+        static AddNewOrder(DeliveryName,Prods,TotalPrice,OrderDate,Delivery_Date,Address,Amount,Status){
+            console.log("sameer",DeliveryName,Prods,TotalPrice,OrderDate,Delivery_Date,Address,Amount,Status)
+            console.log("inside AddNewOrder fun")
+            return fetch(`http://127.0.0.1:8000/mainApp/Orders/`, {
+                    method: 'POST',
+                    headers: {
+                    
+                      'Content-Type': 'application/json',
+                      //'Authorization': `Token ${token}` 
+                         },
+                         body: JSON.stringify({'delivery_name': DeliveryName, 'products' : Prods, 'total_price' : TotalPrice,
+                         'order_date' : OrderDate, 'delivery_date' : Delivery_Date, 'address' : Address, 'amount' : Amount, 'status' : Status} )  
+                            
+                    })
+                    .then(resp => {
+                        if(resp.status === 201){
+                            // Product added successfully
+                            console.log("New Order Added")
+                        }else{
+                           // console.log(resp)
+                        }
+                    })
+                    .catch(error => {
+                        // handle error
+                    });
+        }      
 }

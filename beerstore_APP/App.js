@@ -26,6 +26,10 @@ import {
   AllUsersScreen,
   AllProductScreen,
   EditProd,
+  AllSupplierScreen,
+  DeleteSupplierScreen,
+  DeleteOrderScreen,
+  AllOrderScreen,
 
 } from './src/screens'
 import {
@@ -44,6 +48,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
 const Section = ({children, title}): Node => {
 const isDarkMode = useColorScheme() === 'dark';
 return (
@@ -109,8 +114,10 @@ const Stack = createStackNavigator()
           <Stack.Screen name='DeleteProductScreen' component={DeleteProductScreen}/>
           <Stack.Screen name='AllUsersScreen' component={AllUsersScreen}/>
           <Stack.Screen name='AllProductScreen' component={AllProductScreen}/>
-        
-
+          <Stack.Screen name='AllSupplierScreen' component={AllSupplierScreen}/>
+          <Stack.Screen name='DeleteSupplierScreen' component={DeleteSupplierScreen}/>
+          <Stack.Screen name='DeleteOrderScreen' component={DeleteOrderScreen}/>
+          <Stack.Screen name='AllOrderScreen' component={AllOrderScreen}/> 
           <Stack.Screen 
             name="ResetPasswordScreen"
             component={ResetPasswordScreen}

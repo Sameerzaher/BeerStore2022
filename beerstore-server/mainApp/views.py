@@ -166,27 +166,6 @@ class ProductsViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def AddNewProduct(self, request):
-        # if request.method == 'POST':
-        #     name = request.POST.get('name')
-        #     SupplierName = request.POST.get('supplier_name')
-        #     amount = request.POST.get('amount')
-
-        #     price = request.POST.get('price')
-
-        #     try:
-        #         product = Products.objects.create(
-        #             name=name, supplier_name=SupplierName, amount=amount, price=price)
-        #         product.save()
-        #         return JsonResponse({'status': 'success', 'message': 'Product added successfully'})
-        #     except Exception as e:
-        #         return JsonResponse({'status': 'error', 'message': str(e)})
-        # else:
-        #     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
-        # serializer = ProductsSerializer(data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         givenProductName = ' '
         givenSupplierName = ' '
         givenAmount = ' '
@@ -256,10 +235,91 @@ class ProductsViewSet(viewsets.ModelViewSet):
 class SuppliersViewSet(viewsets.ModelViewSet):
     queryset = Suppliers.objects.all()
     serializer_class = SuppliersSerializer
+    permission_classes = (AllowAny,)
     #authentication_classes = (TokenAuthentication, )
+    @action(detail=False, methods=['POST'])
+    def AddNewSupplier(self, request):
+        givenSupplierName = ' '
+        givenSupplierEmail = ' '
+        givenProducts = ' '
+        givenAddress = ' '
+       # if 'name' in request.data:
+        givenSupplierName = request.POST.get('name')
+        # if 'Supplier name' in request.data:
+        givenSupplierEmail = request.POST.get('Supplier_email')
+        # if 'Amount' in request.data:
+        givenProducts = request.POST.get('Products')
+       # if 'Price' in request.data:
+        givenaddress = request.POST.get('address')
 
+        newSupplier = Suppliers.objects.create(
+            name=givenSupplierName, Supplier_email=givenSupplierEmail, Products=givenProducts, address=givenaddress)
+        newSupplier.save()
+        print("Supplier is: ", newSupplier)
+
+        response = {'message': 'created', 'results': newSupplier}
+        return Response(response, status=status.HTTP_200_OK)
 
 class OrdersViewSet(viewsets.ModelViewSet):
     queryset = Orders.objects.all()
     serializer_class = OrdersSerializer
+    permission_classes = (AllowAny,)
     #authentication_classes = (TokenAuthentication, )
+    @action(detail=True, methods=['POST'])
+    def getAllOrders(self, request, pk=None):
+        print("im here")
+        Order = request.Order
+        print("Orders from query is: ", Order)
+        arr = []
+        ord = Orders.objects.get(Orders=Order)
+        # print("user mail is: ", u.email)
+        print("order name is: ", ord.delivery_name)
+        print("peoducts id  is: ", ord.products)
+        print("total price is ", ord.total_price)
+        print("order date is ", ord.order_date)
+        print("delivery date is ", ord.delivery_date)
+        print("adress is ", ord.address)
+        print("amount is ", ord.amount)
+        print("Status is ", ord.status)
+
+
+        # userDetails= User.objects.filter(user=user.id, course=pk)
+        # for userCourse in userCourses:
+        ord.delivery_name = order
+        serializers = OrdersSerializer(ord, many=False)
+        #     arr.append(serializers.data)
+
+        response = {'message': 'Get', 'results': serializers.data}
+        return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['post'])
+    def AddNewOrder(self, request):
+        givenDeliveryName = ' '
+        givenProducts = ' '
+        givenTotalPrice = ' '
+        givenOrderDate = ' '
+        givenDeliveryDate = ' '
+        givenAddress = ' ' 
+        givenAmount = ' '
+        givenStatus = ' '
+       # if 'name' in request.data:
+        givenDeliveryName = request.POST.get('delivery_name')
+        # if 'Supplier name' in request.data:
+        givenProducts = request.POST.get('products')
+        # if 'Amount' in request.data:
+        givenTotalPrice = request.POST.get('total_price')
+       # if 'Price' in request.data:
+        givenOrderDate = request.POST.get('order_date')
+        givenDeliveryDate = request.POST.get('delivery_date')
+        givenAddress = request.POST.get('address')
+        givenAmount = request.POST.get('amount')
+        givenStatus = request.POST.get('status')
+
+        newOrder = Orders.objects.create(
+            delivery_name=givenDeliveryName, products=givenProducts, total_price=givenTotalPrice, order_date=givenOrderDate, 
+            delivery_date=givenDeliveryDate , address=givenAddress ,amount=givenAmount, status=givenStatus)
+        newOrder.save()
+        print("Order is: ", newOrder)
+
+        response = {'message': 'created', 'results': newProduct}
+        return Response(response, status=status.HTTP_200_OK)

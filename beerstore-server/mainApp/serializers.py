@@ -54,12 +54,12 @@ class SuppliersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Suppliers
-        fields = ('id', 'name', 'Products', 'address', )
+        fields = ('id', 'name', 'Supplier_email', 'Products', 'address', )
 
 
 class OrdersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Orders
-        fields = ('id', 'Delivery_name', 'Products', 'total',
-                  'order_date', 'delivery_date', 'address')
+        fields = ('id', 'delivery_name', 'products', 'total_price',
+                  'order_date', 'delivery_date', 'address', 'amount', 'status')

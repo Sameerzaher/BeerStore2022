@@ -19,4 +19,7 @@ export { default as EditProductScreen } from './Products/EditProductScreen'
 export { default as EditProd } from './Products/EditProd'
 export { default as AllUsersScreen } from './Users/AllUsersScreen'
 export { default as AllProductScreen } from './Products/AllProductScreen'
-
+export { default as AllSupplierScreen } from './Suppliers/AllSuppliersScreen'
+export { default as DeleteSupplierScreen } from './Suppliers/DeleteSupplierScreen'
+export { default as DeleteOrderScreen } from './Orders/DeleteOrderScreen'
+export { default as AllOrderScreen } from './Orders/AllOrderScreen'

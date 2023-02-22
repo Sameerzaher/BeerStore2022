@@ -17,6 +17,14 @@ export default function Orders({ navigation, route }) {
     <Text>{username}</Text>
     <Button mode="outlined"
         onPress={
+          () => navigation.navigate('AllOrderScreen', {username: username})
+          // navigation.reset({
+          //   index: 0,
+          //   routes: [{name: 'Orders'}],
+          // })
+        }>AllOrderScreen</Button>
+    <Button mode="outlined"
+        onPress={
           () => navigation.navigate('NewOrderScreen', {username: username})
           // navigation.reset({
           //   index: 0,
@@ -31,6 +39,14 @@ export default function Orders({ navigation, route }) {
         //   routes: [{name: 'Orders'}],
         // })
       }>EditOrderScreen</Button>
+      <Button mode="outlined"
+       onPress={
+        () => navigation.navigate('DeleteOrderScreen', {username: username})
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{name: 'Orders'}],
+        // })
+      }>DeleteOrderScreen</Button>
         </Background>
    )
 } 
