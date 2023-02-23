@@ -34,7 +34,7 @@ class Products(models.Model):
 
 class Suppliers(models.Model):
     name = models.CharField(max_length=32)
-    Supplier_email = models.EmailField(max_length=254, null=True)
+    SupplierEmail = models.EmailField(max_length=254, null=True)
     Products = models.ManyToManyField(Products, related_name='Products')
     address = models.CharField(max_length=32)
 

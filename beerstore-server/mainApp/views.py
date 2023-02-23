@@ -46,31 +46,38 @@ class UserViewSet(viewsets.ModelViewSet):
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-    authentication_classes = (TokenAuthentication, )
+    permission_classes = (AllowAny,)
+   # authentication_classes = (TokenAuthentication, )
 
-    @permission_classes([IsAuthenticated])
+   
     @action(detail=True, methods=['POST'])
+   
+
     def createUserProfile(self, request, pk=None):
         print("inside create user profile")
         # get the given username
-        username = request.data['username']
-        # get the user from DB  by the given username
+        username = request.data.get('username')
+        
+        # get the user from DB by the given username
         getUser = User.objects.filter(username=username)
-        # get the values of first name and last name
-        givenFirstName = ' '
-        givenLastName = ' '
-        if 'firstName' in request.data:
-            givenFirstName = request.data['firstName']
-        if 'lastName' in request.data:
-            givenLastName = request.data['lastName']
-
+        if not getUser.exists():
+            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            
+        # get the values of first name, last name, email and user type
+        givenFirstName = request.data.get('firstName', '')
+        givenLastName = request.data.get('lastName', '')
+        givenUserEmail = request.data.get('email', '')
+        givenUserType = request.data.get('userType', '')
+        
+        # create the new user profile
         newUser = UserProfile.objects.create(
-            user=getUser[0], username=username, firstName=givenFirstName, lastName=givenLastName, email='', userType='')
-        newUser.save()
+            user=getUser[0], username=username, firstName=givenFirstName, 
+            lastName=givenLastName, email=givenUserEmail, userType=givenUserType)
         print("user is: ", newUser)
-
-        response = {'message': 'created', 'results': newUser}
+        
+        response = {'message': 'created', 'results': {'id': newUser.id}}
         return Response(response, status=status.HTTP_200_OK)
+
 
     @action(detail=True, methods=['POST'])
     def getUserByUsername(self, request, pk=None):
@@ -246,14 +253,14 @@ class SuppliersViewSet(viewsets.ModelViewSet):
        # if 'name' in request.data:
         givenSupplierName = request.POST.get('name')
         # if 'Supplier name' in request.data:
-        givenSupplierEmail = request.POST.get('Supplier_email')
+        givenSupplierEmail = request.POST.get('SupplierEmail')
         # if 'Amount' in request.data:
         givenProducts = request.POST.get('Products')
        # if 'Price' in request.data:
         givenaddress = request.POST.get('address')
 
         newSupplier = Suppliers.objects.create(
-            name=givenSupplierName, Supplier_email=givenSupplierEmail, Products=givenProducts, address=givenaddress)
+            name=givenSupplierName, SupplierEmail=givenSupplierEmail, Products=givenProducts, address=givenaddress)
         newSupplier.save()
         print("Supplier is: ", newSupplier)
 

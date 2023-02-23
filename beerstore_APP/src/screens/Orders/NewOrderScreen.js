@@ -8,7 +8,7 @@ import BackButton from '../../components/BackButton';
 import TextInput from '../../components/TextInput';
 import { Text } from 'react-native-paper';
 import { API } from '../../../api-service';
-import { Alert } from 'react-native';
+import { Alert ,ScrollView } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -56,6 +56,7 @@ export default function NewOrderScreen({ navigation, route }) {
       <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Add Order Screen</Header>
+      <ScrollView style={styles.scrollView}>
       <TextInput
         label="Delivery Name"
         returnKeyType="next"
@@ -71,11 +72,11 @@ export default function NewOrderScreen({ navigation, route }) {
     displayKey="name"
     onSelectedItemsChange={onSelectedItemsChange}
     selectedItems={selectedProductItems}
-    styleDropdownMenu={{ marginTop: 20 }}
+    styleDropdownMenu={{ marginTop: 5 }}
     styleDropdownMenuSubsection={{ backgroundColor: 'white' }}
-    styleTextDropdown={{ paddingHorizontal: 20, fontFamily: 'sans-serif' }}
+    styleTextDropdown={{ paddingHorizontal: 5, fontFamily: 'sans-serif' }}
     styleListContainer={{ backgroundColor: 'white' }}
-    styleItemContainer={{ paddingVertical: 20 }}
+    styleItemContainer={{ paddingVertical: 5 }}
     iconSearch={<MaterialCommunityIcons name="magnify" size={10} color="#999" />}
     iconCancel={<MaterialCommunityIcons name="close" size={10} color="#999" />}
   />
@@ -123,6 +124,7 @@ export default function NewOrderScreen({ navigation, route }) {
         onChangeText={(value) => setStatus(value)}
         autoCapitalize="none"
       />
+      </ScrollView>
     
       <Button mode="outlined" onPress={onSubmit}>
         Submit

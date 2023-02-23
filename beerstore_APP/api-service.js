@@ -47,21 +47,32 @@ export class API extends React.Component{
                     }
                 })
             }
-     static registerUserProfile(username, firstName, lastName){ 
-        console.log(username,firstName,lastName);
-            return fetch(`http://127.0.0.1:8000/mainApp/userProfile/`, {
-                method: 'POST',
-                headers: {
+            static createUserProfile(username, firstName, lastName, email, userType, token) {
+                console.log(username, firstName, lastName, email, userType);
+                console.log("inside createUserProfile function");
                 
-                  'Content-Type': 'application/json',
-                  //'Authorization': `Token ${token}` 
-                     },
-                     body: JSON.stringify({'username' : username, 'firstName' : firstName,'lastName' : lastName} )  
-                        
-                })
-                  .then( resp => resp.json())
+                const url = "http://127.0.0.1:8000/mainApp/userProfile/";
+                const data = {
+                    username: username,
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    userType: userType
+                };
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Token ${token}`
+                    },
+                    body: JSON.stringify(data)
+                };
                 
-               } 
+                return fetch(url, options)
+                    .then(response => response.json())
+                    .catch(error => console.error(error));
+            }
+            
     static getAllProducts(){
         console.log("inside getAllProducts fun")
         return fetch(`http://127.0.0.1:8000/mainApp/Products/`, {
@@ -155,7 +166,7 @@ export class API extends React.Component{
                       'Content-Type': 'application/json',
                       //'Authorization': `Token ${token}` 
                          },
-                         body: JSON.stringify({'name' : SupplierName, 'email' : SupplierEmail,'Products' : Prods,'address' : Address} )  
+                         body: JSON.stringify({'name' : SupplierName, 'SupplierEmail' : SupplierEmail,'Products' : Prods,'address' : Address} )  
                             
                     })
                     .then(resp => {
@@ -195,5 +206,38 @@ export class API extends React.Component{
                     .catch(error => {
                         // handle error
                     });
-        }      
+        } 
+        static DeleteSupplierByID(id){
+            console.log("inside DeleteSupplierByID fun")
+            return fetch (`http://127.0.0.1:8000/mainApp/Suppliers/${id}/`,{
+                method: 'Delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                })
+                .then( resp => resp.json())
+                console.log("Deleted")
+        }   
+        static DeleteOrderByID(id){
+            console.log("inside DeleteOrderByID fun")
+            return fetch (`http://127.0.0.1:8000/mainApp/Orders/${id}/`,{
+                method: 'Delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                })
+                .then( resp => resp.json())
+                console.log("Deleted")
+        } 
+        static DeleteUserProfilerByID(id){
+            console.log("inside DeleteUserProfileByID fun")
+            return fetch (`http://127.0.0.1:8000/mainApp/userProfile/${id}/`,{
+                method: 'Delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                })
+                .then( resp => resp.json())
+                console.log("Deleted")
+        }     
 }

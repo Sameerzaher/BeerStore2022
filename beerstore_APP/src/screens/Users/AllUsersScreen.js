@@ -1,59 +1,52 @@
-import React, { useState , useEffect } from 'react'
+import React, {useState, useEffect} from 'react';
 import Background from '../../components/Background'
 import Logo from '../../components/Logo'
 import Header from '../../components/Header'
-import Paragraph from '../../components/Paragraph'
-import Button from '../../components/Button'
-import {
-  Alert,
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Dimensions,
-  ToastAndroid,
-  ActivityIndicator,
-} from 'react-native';
+import { StyleSheet,Text, View,FlatList} from 'react-native';
 import BackButton from '../../components/BackButton'
-import { API } from '../../../api-service';
-import UserListItem from '../../components/UserListItem'
-export default function AllUsersScreen({ navigation , route }) {
+import Button from '../../components/Button'
+export default function AllProductScreen({navigation, route}) {
   const {username} = route.params;
-  const [UserList, setUserList] = useState([]);
-  useEffect(() => {
-    console.log("aaaa");
-    API.displayUsers();
-  }, [UserList]);
-  console.log(UserList);
+  const [userProfile,setuserProfile] = useState('');
+  useEffect(()=>{
+    fetchData()
+},[]);
+    const fetchData = ()=>{
+       fetch("http://127.0.0.1:8000/mainApp/userProfile/")
+       .then(response => response.json())
+      .then(jsonResponse => setuserProfile(jsonResponse))
+      .catch(error => console.log(error))    
+    };
+const renderUserProfile = ({item}) => {
+  return(  
+    <View style={{margin:20,borderWidth:0.5,padding:40}}>
+    <Text style={{color:"black",fontSize:30,fontWeight:"bold"}}>
+      UserProfile {item.id}
+    </Text>
+    <Text style={{color:"black", fontSize:20}}>name : {item.username}</Text>
+    <Text style={{color:"black", fontSize:20}}>email : {item.email}</Text>
+    <Text style={{color:"black", fontSize:20}}>firstName : {item.firstName}</Text>
+    <Text style={{color:"black", fontSize:20}}>lastName : {item.lastName}</Text>
+
+  </View>
+
+  )
+  }
   return (
     <Background>
-    <BackButton goBack={navigation.goBack} />
+        <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>AllUsersScreen</Header>
-
-      <ScrollView>
-                <View>
-                    <Text>
-                      {console.log(UserList)}
-                    data={UserList}
-       
-                    renderItem={({item}) => (
-                      
-                      <UserListItem
-                        //onMenuPressed={data => onMenuPressed(data)}
-                        item={item}
-                      />
-                    )}
-                    keyExtractor={item => item.id}
-                    </Text>
-                </View>
-              </ScrollView>
-     
-     
+      <Header>All Users Screen</Header>
+    <View style={{flex:1,backgroundColor:"white"}}>
+      <FlatList
+        data={userProfile}
+        renderItem={renderUserProfile}
+        keyExtractor={(item,index) => index.toString()}
+        />
+    </View>
     </Background>
   )
-}
+};
+            
+
+
